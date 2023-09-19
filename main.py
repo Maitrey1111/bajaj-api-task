@@ -6,14 +6,39 @@ app = FastAPI()
 async def root():
     return {"message": "Go to /bfhl"}
 
-@app.route('/bfhl', methods=['GET', 'POST'])
-async def handle_request():
+
+@app.get("/bfhl")
+async def bfhl_get():
     return {
-        "status": 'True',
-        "id": 12,
-        "email": "1@gmail.com",
-        "rollno": "20BCE0771",
-        "numbers": [], 
-        "alphabets": []
-# 7. Highest Alphabet in the input array of alphabets [Refer to note in Annexure for more info]
+        "operation_code": 1
+    }
+
+@app.post("/bfhl")
+async def bfhl_post(data: list):
+    numbers = []
+    alphabets = []
+    maximum_alpha = ''
+
+    if(len(data) > 0):
+        for ele in data:
+            if(ele.isdigit()):
+                numbers.append(str(ele))
+            elif(ele.isalpha()):
+                if(maximum_alpha < ele.lower() or maximum_alpha == ''):
+                    maximum_alpha = ele
+                alphabets.append(str(ele))
+            
+    if maximum_alpha == '': 
+        maximum_alpha = []
+    else:
+        maximum_alpha = [ maximum_alpha ]
+
+    return {
+        "is_success": True,
+        "user_id": "maitrey_bhute_01042003", 
+        "email" : "maitrey.bhute2020@vitstudent.ac.in",
+        "roll_number":"20BCE0771",
+        "numbers": numbers,
+        "alphabets": alphabets,
+        "highest_alphabet": maximum_alpha
     }
