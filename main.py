@@ -18,6 +18,7 @@ async def bfhl_post(data: list):
     numbers = []
     alphabets = []
     maximum_alpha = ''
+    data = data[0].split(',')
 
     if(len(data) > 0):
         for ele in data:
